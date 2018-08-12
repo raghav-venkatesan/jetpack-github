@@ -1,48 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="15dp"
-    tools:context=".ui.UserReposFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--
-    The below LinearLayout has focusable and focusableInTouchMode set to true to prevent the
-    TextInputEditText from getting focus when the activity is created.
-    -->
+    <data>
+        <variable
+            name="userReposViewModel"
+            type="com.example.raghav.jetpackgithub.viewmodel.UserReposViewModel" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="15dp"
+        tools:context=".ui.UserReposFragment">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="0dp"
+        <!--
+        The below LinearLayout has focusable and focusableInTouchMode set to true to prevent the
+        TextInputEditText from getting focus when the activity is created.
+        -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/enter_a_github_user_id">
+            android:orientation="horizontal"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/enter_a_github_user_id">
 
-        </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/githubUserIdInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-        <Button
-            android:id="@+id/searchButton"
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/searchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search"
+                android:textAllCaps="true"
+                android:layout_marginStart="15dp"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/detail_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/enter_a_github_user_id"
+            android:fitsSystemWindows="true"
+            android:scaleType="centerCrop"
+            app:imageFromUrl="@{userReposViewModel.user.avatarUrl}"/>
+
+        <TextView
+            android:id="@+id/githubUserIdTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search"
-            android:textAllCaps="true"
-            android:layout_marginStart="15dp"/>
+            android:textAlignment="center"
+            android:text="@{userReposViewModel.user.name}"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/repos_list_view"/>
 
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/repos_list_view"/>
-
-</LinearLayout>
+</layout>
