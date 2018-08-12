@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <!--
+    Setting this fragment as the NavHostFragment, which hosts the navigation graph.
+    Setting app:defaultNavHost="true" ensures that this NavHostFragment intercepts the system Back
+    Button.
+    -->
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"

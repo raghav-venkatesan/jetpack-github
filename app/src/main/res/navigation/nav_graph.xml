@@ -5,9 +5,11 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/reposListFragment">
 
+    <!--Just one fragment in the navigation graph-->
     <fragment
         android:id="@+id/reposListFragment"
         android:name="com.example.raghav.jetpackgithub.ui.ReposListFragment"
         android:label="fragment_repos_list"
         tools:layout="@layout/fragment_repos_list" />
+
 </navigation>

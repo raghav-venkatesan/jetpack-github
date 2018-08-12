@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
+    // This makes the NavHostFragment intercept navigation up
     override fun onSupportNavigateUp() = findNavController(R.id.my_nav_host_fragment).navigateUp()
 
 }
