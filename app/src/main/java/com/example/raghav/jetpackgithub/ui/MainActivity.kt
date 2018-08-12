@@ -2,6 +2,7 @@ package com.example.raghav.jetpackgithub.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.findNavController
 import com.example.raghav.jetpackgithub.R
 
 class MainActivity : AppCompatActivity() {
@@ -10,4 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+
+    override fun onSupportNavigateUp() = findNavController(R.id.my_nav_host_fragment).navigateUp()
+
 }

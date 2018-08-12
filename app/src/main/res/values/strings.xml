@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Jetpack Github</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="repos_list_fragment">Repos list fragment</string>
+    <string name="repo_detail_fragment">Repo detail fragment</string>
+    <string name="search">Search</string>
+    <string name="enter_a_github_user_id">Enter a github user id</string>
 </resources>
