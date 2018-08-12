@@ -8,18 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.example.raghav.jetpackgithub.R
-import kotlinx.android.synthetic.main.fragment_repos_list.*
+import kotlinx.android.synthetic.main.fragment_user_repos.*
 
 /**
  * Fragment to show the list of repositories
  *
  */
 
-class ReposListFragment : Fragment() {
+class UserReposFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_repos_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_user_repos, container, false)
         return view
     }
 
