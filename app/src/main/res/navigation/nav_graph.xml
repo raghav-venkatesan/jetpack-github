@@ -9,15 +9,16 @@
         android:id="@+id/reposListFragment"
         android:name="com.example.raghav.jetpackgithub.ui.ReposListFragment"
         android:label="fragment_repos_list"
-        tools:layout="@layout/fragment_repos_list" />
+        tools:layout="@layout/fragment_repos_list">
+        <action
+            android:id="@+id/action_reposListFragment_to_repoDetailFragment"
+            app:destination="@id/repoDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/repoDetailFragment"
         android:name="com.example.raghav.jetpackgithub.ui.RepoDetailFragment"
         android:label="fragment_repo_detail"
         tools:layout="@layout/fragment_repo_detail" >
-        <action
-            android:id="@+id/action_repoDetailFragment_to_reposListFragment"
-            app:destination="@id/reposListFragment" />
     </fragment>
 </navigation>
