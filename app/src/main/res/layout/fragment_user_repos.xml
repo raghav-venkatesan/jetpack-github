@@ -57,7 +57,7 @@
             android:contentDescription="@string/enter_a_github_user_id"
             android:fitsSystemWindows="true"
             android:scaleType="centerCrop"
-            app:imageFromUrl="@{userReposViewModel.user.avatarUrl}"/>
+            app:imageFromUrl="@{userReposViewModel.user.avatar_url}"/>
 
         <TextView
             android:id="@+id/githubUserIdTextView"

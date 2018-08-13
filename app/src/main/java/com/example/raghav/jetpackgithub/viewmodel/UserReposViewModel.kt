@@ -5,6 +5,13 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.example.raghav.jetpackgithub.model.Repo
 import com.example.raghav.jetpackgithub.model.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.Retrofit
+
+
 
 class UserReposViewModel : ViewModel() {
     var userId: String? = null
@@ -12,6 +19,37 @@ class UserReposViewModel : ViewModel() {
     private var repos: LiveData<List<Repo>>? = null
 
     fun init(githubUserId: String) {
+
+        val retrofit = Retrofit.Builder()
+                .baseUrl("https://api.github.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+        val service = retrofit.create(GithubService::class.java)
+
+        service.getUser(githubUserId).enqueue(object : Callback<User> {
+            override fun onFailure(call: Call<User>?, t: Throwable?) {
+                println("retrofit user failure " + t.toString())
+            }
+
+            override fun onResponse(call: Call<User>?, response: Response<User>?) {
+                val user = response?.body()
+                println("retrofit user success " + user.toString())
+            }
+        })
+
+        service.listRepos(githubUserId).enqueue(object : Callback<List<Repo>> {
+            override fun onFailure(call: Call<List<Repo>>?, t: Throwable?) {
+                println("retrofit repos failure " + t.toString())
+            }
+
+            override fun onResponse(call: Call<List<Repo>>?, response: Response<List<Repo>>?) {
+                val reposList = response?.body()
+                println("retrofit repos success ")
+                reposList?.forEach { println(it.toString()) }
+            }
+        })
+
         userId = githubUserId
         val data = MutableLiveData<User>()
         data.value = User(userId!!, "com.com")
