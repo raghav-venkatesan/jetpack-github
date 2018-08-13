@@ -31,15 +31,16 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="hello"
+                    android:text="@string/last_updated"
                     android:textAlignment="viewStart"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textViewLastUpdatedValue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="hello"
+                    android:layout_weight="2"
+                    android:text=""
                     android:textAlignment="viewEnd" />
 
             </LinearLayout>
@@ -55,15 +56,16 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="hello"
+                    android:text="@string/stars"
                     android:textAlignment="viewStart"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textViewStarsValue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="hello"
+                    android:text=""
                     android:textAlignment="viewEnd" />
 
             </LinearLayout>
@@ -79,15 +81,16 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="hello"
+                    android:text="@string/forks"
                     android:textAlignment="viewStart"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textViewForksValue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="hello"
+                    android:text=""
                     android:textAlignment="viewEnd" />
 
             </LinearLayout>

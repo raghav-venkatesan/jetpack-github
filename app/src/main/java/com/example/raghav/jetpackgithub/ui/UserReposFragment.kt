@@ -4,16 +4,23 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.BottomSheetDialog
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.FrameLayout
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.raghav.jetpackgithub.R
 import com.example.raghav.jetpackgithub.application.GithubApplication
 import com.example.raghav.jetpackgithub.databinding.FragmentUserReposBinding
+import com.example.raghav.jetpackgithub.model.Repo
+import com.example.raghav.jetpackgithub.ui.adapter.ReposListAdapter
+import com.example.raghav.jetpackgithub.util.convertTimeFormat
 import com.example.raghav.jetpackgithub.viewmodel.UserReposViewModel
 import kotlinx.android.synthetic.main.fragment_user_repos.*
 
@@ -22,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_user_repos.*
  *
  */
 
-class UserReposFragment : Fragment() {
+class UserReposFragment : Fragment(), ListItemListener {
 
     private lateinit var viewModel: UserReposViewModel
 
@@ -43,6 +50,8 @@ class UserReposFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        repos_list_view.layoutManager = LinearLayoutManager(context)
+
         searchButton.setOnClickListener {
             viewModel.init(githubUserIdInput.text.toString(), (activity?.application as GithubApplication))
 
@@ -53,25 +62,33 @@ class UserReposFragment : Fragment() {
                         .transition(DrawableTransitionOptions.withCrossFade(2000))
                         .into(githubUserImage)
 
-                val slideUpAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_up)
+                val slideUpAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_up_profile)
                 githubUserIdTextView.startAnimation(slideUpAnimation)
                 githubUserImage.startAnimation(slideUpAnimation)
             })
-        }
 
-//         Uncomment the code below while setting the click listener for recycler view
-//        searchButton.setOnClickListener {
-//            /*
-//            Show details of the selected repo using a bottom sheet dialog.
-//            It provides the requisite animations.
-//             */
-//            val bottomSheetDialog = BottomSheetDialog(context!!)
-//            bottomSheetDialog.setContentView(R.layout.view_repo_detail)
-//            // Find the frame layout within the coordinate layout of the bottom sheet dialog to make it transparent
-//            bottomSheetDialog.window?.findViewById<FrameLayout>(R.id.design_bottom_sheet)?.setBackgroundResource(android.R.color.transparent);
-//            bottomSheetDialog.show()
-//        }
+            viewModel.getRepos()?.observe(viewLifecycleOwner, Observer { reposList ->
+                reposList?.let {
+                    val reposListAdapter = ReposListAdapter(it, this@UserReposFragment)
+                    reposListAdapter.setHasStableIds(true)
+                    repos_list_view.adapter = reposListAdapter
+                }
+            })
+        }
     }
 
-
+    override fun listItemClicked(repo: Repo) {
+        /*
+        Show details of the selected repo using a bottom sheet dialog.
+        It provides the requisite animations.
+         */
+        val bottomSheetDialog = BottomSheetDialog(context!!)
+        bottomSheetDialog.setContentView(R.layout.view_repo_detail)
+        bottomSheetDialog.window?.findViewById<TextView>(R.id.textViewLastUpdatedValue)?.text = convertTimeFormat(repo.updated_at)
+        bottomSheetDialog.window?.findViewById<TextView>(R.id.textViewStarsValue)?.text = repo.stargazers_count.toString()
+        bottomSheetDialog.window?.findViewById<TextView>(R.id.textViewForksValue)?.text = repo.forks.toString()
+        // Find the frame layout within the coordinate layout of the bottom sheet dialog to make it transparent
+        bottomSheetDialog.window?.findViewById<FrameLayout>(R.id.design_bottom_sheet)?.setBackgroundResource(android.R.color.transparent)
+        bottomSheetDialog.show()
+    }
 }
