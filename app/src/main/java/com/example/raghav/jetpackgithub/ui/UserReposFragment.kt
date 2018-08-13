@@ -13,10 +13,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.raghav.jetpackgithub.R
 import com.example.raghav.jetpackgithub.application.GithubApplication
 import com.example.raghav.jetpackgithub.databinding.FragmentUserReposBinding
-import com.example.raghav.jetpackgithub.repository.GithubService
 import com.example.raghav.jetpackgithub.viewmodel.UserReposViewModel
 import kotlinx.android.synthetic.main.fragment_user_repos.*
-import javax.inject.Inject
 
 /**
  * Fragment to show the list of repositories
@@ -26,7 +24,6 @@ import javax.inject.Inject
 class UserReposFragment : Fragment() {
 
     private lateinit var viewModel: UserReposViewModel
-    @Inject lateinit var service: GithubService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -42,8 +39,20 @@ class UserReposFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        searchButton.setOnClickListener {
+            viewModel.init(githubUserIdInput.text.toString(), (activity?.application as GithubApplication))
+
+            viewModel.getUser()?.observe(viewLifecycleOwner, Observer { user ->
+                githubUserIdTextView.text = user?.name
+                Glide.with(activity)
+                        .load(user?.avatar_url)
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(githubUserImage)
+            })
+        }
 
 //         Uncomment the code below while setting the click listener for recycler view
 //        searchButton.setOnClickListener {
@@ -57,24 +66,6 @@ class UserReposFragment : Fragment() {
 //            bottomSheetDialog.window?.findViewById<FrameLayout>(R.id.design_bottom_sheet)?.setBackgroundResource(android.R.color.transparent);
 //            bottomSheetDialog.show()
 //        }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        (activity?.application as GithubApplication).component.injectService(this@UserReposFragment)
-
-        searchButton.setOnClickListener {
-            viewModel.init(githubUserIdInput.text.toString(), (activity?.application as GithubApplication), service)
-
-            viewModel.getUser()?.observe(viewLifecycleOwner, Observer { user ->
-                githubUserIdTextView.text = user?.name
-                Glide.with(activity)
-                        .load(user?.avatar_url)
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(githubUserImage)
-            })
-        }
     }
 
 

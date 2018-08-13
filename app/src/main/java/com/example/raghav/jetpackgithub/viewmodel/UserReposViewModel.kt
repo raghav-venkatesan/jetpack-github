@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModel
 import com.example.raghav.jetpackgithub.application.GithubApplication
 import com.example.raghav.jetpackgithub.model.Repo
 import com.example.raghav.jetpackgithub.model.User
-import com.example.raghav.jetpackgithub.repository.GithubService
 import com.example.raghav.jetpackgithub.repository.UserRepository
 import javax.inject.Inject
 
@@ -16,7 +15,7 @@ class UserReposViewModel : ViewModel() {
     private var repos: LiveData<List<Repo>>? = null
     @Inject lateinit var userRepo: UserRepository
 
-    fun init(githubUserId: String, application: GithubApplication, service: GithubService) {
+    fun init(githubUserId: String, application: GithubApplication) {
 
         application.component.injectUserRepo(this)
 
