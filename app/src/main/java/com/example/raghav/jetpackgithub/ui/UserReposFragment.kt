@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.raghav.jetpackgithub.R
@@ -49,8 +50,12 @@ class UserReposFragment : Fragment() {
                 githubUserIdTextView.text = user?.name
                 Glide.with(activity)
                         .load(user?.avatar_url)
-                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .transition(DrawableTransitionOptions.withCrossFade(2000))
                         .into(githubUserImage)
+
+                val slideUpAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_up)
+                githubUserIdTextView.startAnimation(slideUpAnimation)
+                githubUserImage.startAnimation(slideUpAnimation)
             })
         }
 
