@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -68,9 +69,11 @@ class UserReposFragment : Fragment(), ListItemListener {
 
             viewModel.getRepos()?.observe(viewLifecycleOwner, Observer { reposList ->
                 reposList?.let {
-                    val reposListAdapter = ReposListAdapter(it, this@UserReposFragment)
-                    reposListAdapter.setHasStableIds(true)
-                    repos_list_view.adapter = reposListAdapter
+                    Handler().postDelayed({
+                        val reposListAdapter = ReposListAdapter(it, this@UserReposFragment)
+                        reposListAdapter.setHasStableIds(true)
+                        repos_list_view.adapter = reposListAdapter
+                    }, 500)
                 }
             })
         }
