@@ -17,12 +17,14 @@ import com.example.raghav.jetpackgithub.R
 import com.example.raghav.jetpackgithub.application.GithubApplication
 import com.example.raghav.jetpackgithub.databinding.FragmentUserReposBinding
 import com.example.raghav.jetpackgithub.model.Repo
+import com.example.raghav.jetpackgithub.repository.UserRepository
 import com.example.raghav.jetpackgithub.ui.adapter.ReposListAdapter
 import com.example.raghav.jetpackgithub.ui.customview.CustomBottomSheetDialog
 import com.example.raghav.jetpackgithub.ui.interfaces.ListItemListener
 import com.example.raghav.jetpackgithub.util.convertTimeFormat
 import com.example.raghav.jetpackgithub.viewmodel.UserReposViewModel
 import kotlinx.android.synthetic.main.fragment_user_repos.*
+import javax.inject.Inject
 
 /**
  * Fragment to show the list of repositories
@@ -32,6 +34,7 @@ import kotlinx.android.synthetic.main.fragment_user_repos.*
 class UserReposFragment : Fragment(), ListItemListener {
 
     private lateinit var viewModel: UserReposViewModel
+    @Inject lateinit var userRepository: UserRepository
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -51,9 +54,10 @@ class UserReposFragment : Fragment(), ListItemListener {
         super.onActivityCreated(savedInstanceState)
 
         repos_list_view.layoutManager = LinearLayoutManager(context)
+        (activity?.application as GithubApplication).component.injectUserRepo(this@UserReposFragment)
 
         searchButton.setOnClickListener {
-            viewModel.init(githubUserIdInput.text.toString(), (activity?.application as GithubApplication))
+            viewModel.init(githubUserIdInput.text.toString(), userRepository)
 
             viewModel.getUser()?.observe(viewLifecycleOwner, Observer { user ->
                 githubUserIdTextView.text = user?.name
