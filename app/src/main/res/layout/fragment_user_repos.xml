@@ -51,12 +51,14 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/detail_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/githubUserImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
             android:contentDescription="@string/enter_a_github_user_id"
             android:fitsSystemWindows="true"
             android:scaleType="centerCrop"
+            android:layout_marginTop="15dp"
             app:imageFromUrl="@{userReposViewModel.user.avatar_url}"/>
 
         <TextView
@@ -64,6 +66,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
             android:text="@{userReposViewModel.user.name}"/>
 
         <android.support.v7.widget.RecyclerView

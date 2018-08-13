@@ -4,15 +4,16 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.BottomSheetDialog
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.raghav.jetpackgithub.R
 import com.example.raghav.jetpackgithub.application.GithubApplication
 import com.example.raghav.jetpackgithub.databinding.FragmentUserReposBinding
-import com.example.raghav.jetpackgithub.viewmodel.GithubService
+import com.example.raghav.jetpackgithub.repository.GithubService
 import com.example.raghav.jetpackgithub.viewmodel.UserReposViewModel
 import kotlinx.android.synthetic.main.fragment_user_repos.*
 import javax.inject.Inject
@@ -64,10 +65,14 @@ class UserReposFragment : Fragment() {
         (activity?.application as GithubApplication).component.injectService(this@UserReposFragment)
 
         searchButton.setOnClickListener {
-            viewModel.init(githubUserIdInput.text.toString(), service)
+            viewModel.init(githubUserIdInput.text.toString(), (activity?.application as GithubApplication), service)
 
             viewModel.getUser()?.observe(viewLifecycleOwner, Observer { user ->
                 githubUserIdTextView.text = user?.name
+                Glide.with(activity)
+                        .load(user?.avatar_url)
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(githubUserImage)
             })
         }
     }

@@ -1,17 +1,12 @@
 package com.example.raghav.jetpackgithub.di
 
-import com.example.raghav.jetpackgithub.viewmodel.GithubService
+import com.example.raghav.jetpackgithub.repository.GithubService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-/**
- * @author Koc
- *         ivan.kocijan@infinum.hr
- * @since 20/03/16
- */
 @Module
 class RetrofitModule {
 

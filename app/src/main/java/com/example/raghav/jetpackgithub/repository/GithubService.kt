@@ -1,4 +1,4 @@
-package com.example.raghav.jetpackgithub.viewmodel
+package com.example.raghav.jetpackgithub.repository
 
 import com.example.raghav.jetpackgithub.model.Repo
 import com.example.raghav.jetpackgithub.model.User
