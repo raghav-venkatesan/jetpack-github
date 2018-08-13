@@ -8,9 +8,6 @@ import com.example.raghav.jetpackgithub.model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.Retrofit
-
 
 
 class UserReposViewModel : ViewModel() {
@@ -18,14 +15,7 @@ class UserReposViewModel : ViewModel() {
     private var user: LiveData<User>? = null
     private var repos: LiveData<List<Repo>>? = null
 
-    fun init(githubUserId: String) {
-
-        val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.github.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-        val service = retrofit.create(GithubService::class.java)
+    fun init(githubUserId: String, service: GithubService) {
 
         service.getUser(githubUserId).enqueue(object : Callback<User> {
             override fun onFailure(call: Call<User>?, t: Throwable?) {
