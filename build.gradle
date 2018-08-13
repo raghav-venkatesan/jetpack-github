@@ -25,6 +25,8 @@ buildscript {
         workVersion = '1.0.0-alpha06'
         retrofitVersion = '2.3.0'
         daggerVersion = '2.13'
+        mockitoVersion = '2.7.22'
+        coreTestingVersion = '1.1.1'
     }
 
     repositories {
