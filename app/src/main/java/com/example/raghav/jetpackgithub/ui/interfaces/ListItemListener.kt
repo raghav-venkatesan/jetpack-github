@@ -1,4 +1,4 @@
-package com.example.raghav.jetpackgithub.ui
+package com.example.raghav.jetpackgithub.ui.interfaces
 
 import com.example.raghav.jetpackgithub.model.Repo
 

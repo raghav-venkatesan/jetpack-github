@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.raghav.jetpackgithub.R
 import com.example.raghav.jetpackgithub.model.Repo
-import com.example.raghav.jetpackgithub.ui.ListItemListener
+import com.example.raghav.jetpackgithub.ui.interfaces.ListItemListener
 import kotlinx.android.synthetic.main.layout_repo_desc.view.*
 
 class ReposListAdapter(private val reposList: List<Repo>, private val listItemListener: ListItemListener) : RecyclerView.Adapter<ReposListAdapter.RepoDescHolder>() {
