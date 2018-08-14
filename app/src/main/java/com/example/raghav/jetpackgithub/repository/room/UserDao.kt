@@ -15,12 +15,6 @@ interface UserDao {
     @Insert(onConflict = REPLACE)
     fun save(user: User)
 
-    @Insert(onConflict = REPLACE)
-    fun save(repo: Repo)
-
-    @Query("SELECT * FROM user WHERE userId = :userId")
+    @Query("SELECT * FROM user WHERE login = :userId")
     fun loadUser(userId: String): LiveData<User>
-
-    @Query("SELECT * FROM repo WHERE userId = :userId")
-    fun loadRepos(userId: String): LiveData<List<Repo>>
 }
