@@ -29,12 +29,12 @@ public class UserReposViewModelTest {
         UserRepository mockUserRepo = mock(UserRepository.class);
 
         MutableLiveData<User> userData = new MutableLiveData<>();
-        User user1 = new User("e", "f");
+        User user1 = new User("d", "e", "f");
         userData.setValue(user1);
 
         MutableLiveData<List<Repo>> repoData = new MutableLiveData<>();
-        Repo repo1 = new Repo("1", "2", "3", 4, 5);
-        Repo repo2 = new Repo("6", "7", "8", 9, 10);
+        Repo repo1 = new Repo("0","1", "2", "3", 4, 5);
+        Repo repo2 = new Repo("0","6", "7", "8", 9, 10);
         ArrayList<Repo> reposList = new ArrayList<>();
         reposList.add(repo1);
         reposList.add(repo2);

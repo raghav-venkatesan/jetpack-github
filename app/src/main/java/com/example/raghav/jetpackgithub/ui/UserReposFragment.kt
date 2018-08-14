@@ -34,7 +34,6 @@ import javax.inject.Inject
 class UserReposFragment : Fragment(), ListItemListener {
 
     private lateinit var viewModel: UserReposViewModel
-    @Inject lateinit var userRepository: UserRepository
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -54,10 +53,9 @@ class UserReposFragment : Fragment(), ListItemListener {
         super.onActivityCreated(savedInstanceState)
 
         repos_list_view.layoutManager = LinearLayoutManager(context)
-        (activity?.application as GithubApplication).component.injectUserRepo(this@UserReposFragment)
 
         searchButton.setOnClickListener {
-            viewModel.init(githubUserIdInput.text.toString(), userRepository)
+            viewModel.init(githubUserIdInput.text.toString())
 
             viewModel.getUser()?.observe(viewLifecycleOwner, Observer { user ->
                 githubUserIdTextView.text = user?.name

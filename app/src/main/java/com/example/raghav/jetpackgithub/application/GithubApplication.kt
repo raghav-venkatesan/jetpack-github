@@ -6,7 +6,10 @@ import com.example.raghav.jetpackgithub.di.DaggerAppComponent
 
 class GithubApplication : Application() {
 
-    val component: AppComponent by lazy {
-        DaggerAppComponent.builder().build()
+    companion object {
+        val component: AppComponent by lazy {
+            DaggerAppComponent.builder().build()
+        }
     }
+
 }
