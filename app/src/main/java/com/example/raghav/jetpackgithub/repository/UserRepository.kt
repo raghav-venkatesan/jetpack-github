@@ -17,6 +17,23 @@ import javax.inject.Singleton
 data class UserRepository(val service: GithubService, val userDao: UserDao?, val executor: Executor) {
 
     fun getUser(userId: String): LiveData<User>? {
+        val data = MutableLiveData<User>()
+        service.getUser(userId).enqueue(object : Callback<User> {
+            override fun onFailure(call: Call<User>?, t: Throwable?) {
+                println("retrofit user failure " + t.toString())
+            }
+
+            override fun onResponse(call: Call<User>?, response: Response<User>?) {
+                val user = response?.body()
+                data.value = user
+                println("retrofit user success " + user.toString())
+            }
+        })
+
+        return data
+    }
+
+    fun getUserFromDb(userId: String): LiveData<User>? {
         refreshUser(userId)
         return userDao?.loadUser(userId)
     }
