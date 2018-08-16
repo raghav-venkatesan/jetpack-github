@@ -1,39 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <android.support.v7.widget.CardView
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="repo"
+            type="com.example.raghav.jetpackgithub.model.Repo"/>
+        <variable
+            name="reposFragment"
+            type="com.example.raghav.jetpackgithub.ui.UserReposFragment"/>
+    </data>
+    <LinearLayout
+        android:id="@+id/listItem"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:cardElevation="5dp">
+        android:onClick="@{() -> reposFragment.listItemClicked(repo)}">
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="10dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:cardElevation="5dp">
 
-            <TextView
-                android:id="@+id/textViewRepoName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:textStyle="bold"
-                android:text=""/>
+                android:orientation="vertical"
+                android:layout_margin="10dp">
 
-            <TextView
-                android:id="@+id/textViewRepoDesc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/textViewRepoName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:textStyle="bold"
+                    android:text="@{repo.name}"/>
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textViewRepoDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{repo.description}"/>
 
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</layout>

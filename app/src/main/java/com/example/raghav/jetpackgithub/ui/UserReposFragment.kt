@@ -14,9 +14,8 @@ import android.view.animation.AnimationUtils
 import com.example.raghav.jetpackgithub.R
 import com.example.raghav.jetpackgithub.databinding.FragmentUserReposBinding
 import com.example.raghav.jetpackgithub.model.Repo
-import com.example.raghav.jetpackgithub.ui.adapter.ReposListAdapter
+import com.example.raghav.jetpackgithub.ui.adapter.ReposAdapter
 import com.example.raghav.jetpackgithub.ui.customview.CustomBottomSheetDialog
-import com.example.raghav.jetpackgithub.ui.interfaces.ListItemListener
 import com.example.raghav.jetpackgithub.util.convertTimeFormat
 import com.example.raghav.jetpackgithub.viewmodel.UserReposViewModel
 import kotlinx.android.synthetic.main.fragment_user_repos.*
@@ -26,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_user_repos.*
  *
  */
 
-class UserReposFragment : Fragment(), ListItemListener {
+class UserReposFragment : Fragment() {
 
     private lateinit var viewModel: UserReposViewModel
 
@@ -63,7 +62,7 @@ class UserReposFragment : Fragment(), ListItemListener {
         viewModel.reposList.observe(viewLifecycleOwner, Observer { reposList ->
             reposList?.let {
                 Handler().postDelayed({
-                    val reposListAdapter = ReposListAdapter(it, this@UserReposFragment)
+                    val reposListAdapter = ReposAdapter(it, this@UserReposFragment)
                     reposListAdapter.setHasStableIds(true)
                     repos_list_view.adapter = reposListAdapter
                 }, 500)
@@ -71,7 +70,7 @@ class UserReposFragment : Fragment(), ListItemListener {
         })
     }
 
-    override fun listItemClicked(repo: Repo) {
+    fun listItemClicked(repo: Repo) {
         /*
         Show details of the selected repo using a custom bottom sheet dialog.
         It provides the requisite animations.
