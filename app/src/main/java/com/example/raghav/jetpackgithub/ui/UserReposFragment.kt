@@ -11,20 +11,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.raghav.jetpackgithub.R
-import com.example.raghav.jetpackgithub.application.GithubApplication
 import com.example.raghav.jetpackgithub.databinding.FragmentUserReposBinding
 import com.example.raghav.jetpackgithub.model.Repo
-import com.example.raghav.jetpackgithub.repository.UserRepository
 import com.example.raghav.jetpackgithub.ui.adapter.ReposListAdapter
 import com.example.raghav.jetpackgithub.ui.customview.CustomBottomSheetDialog
 import com.example.raghav.jetpackgithub.ui.interfaces.ListItemListener
 import com.example.raghav.jetpackgithub.util.convertTimeFormat
 import com.example.raghav.jetpackgithub.viewmodel.UserReposViewModel
 import kotlinx.android.synthetic.main.fragment_user_repos.*
-import javax.inject.Inject
 
 /**
  * Fragment to show the list of repositories
@@ -34,7 +29,6 @@ import javax.inject.Inject
 class UserReposFragment : Fragment(), ListItemListener {
 
     private lateinit var viewModel: UserReposViewModel
-    @Inject lateinit var userRepository: UserRepository
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -44,6 +38,7 @@ class UserReposFragment : Fragment(), ListItemListener {
         val binding = DataBindingUtil.inflate<FragmentUserReposBinding>(
                 inflater, R.layout.fragment_user_repos, container, false).apply {
             userReposViewModel = viewModel
+            userReposFragment = this@UserReposFragment
             setLifecycleOwner(this@UserReposFragment)
         }
 
@@ -54,33 +49,26 @@ class UserReposFragment : Fragment(), ListItemListener {
         super.onActivityCreated(savedInstanceState)
 
         repos_list_view.layoutManager = LinearLayoutManager(context)
-        (activity?.application as GithubApplication).component.injectUserRepo(this@UserReposFragment)
+    }
 
-        searchButton.setOnClickListener {
-            viewModel.init(githubUserIdInput.text.toString(), userRepository)
+    fun searchButtonClicked() {
+        viewModel.init(githubUserIdInput.text.toString())
 
-            viewModel.getUser()?.observe(viewLifecycleOwner, Observer { user ->
-                githubUserIdTextView.text = user?.name
-                Glide.with(activity)
-                        .load(user?.avatar_url)
-                        .transition(DrawableTransitionOptions.withCrossFade(2000))
-                        .into(githubUserImage)
+        viewModel.userName.observe(viewLifecycleOwner, Observer { _ ->
+            val slideUpAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_up_profile)
+            githubUserIdTextView.startAnimation(slideUpAnimation)
+            githubUserImage.startAnimation(slideUpAnimation)
+        })
 
-                val slideUpAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_up_profile)
-                githubUserIdTextView.startAnimation(slideUpAnimation)
-                githubUserImage.startAnimation(slideUpAnimation)
-            })
-
-            viewModel.getRepos()?.observe(viewLifecycleOwner, Observer { reposList ->
-                reposList?.let {
-                    Handler().postDelayed({
-                        val reposListAdapter = ReposListAdapter(it, this@UserReposFragment)
-                        reposListAdapter.setHasStableIds(true)
-                        repos_list_view.adapter = reposListAdapter
-                    }, 500)
-                }
-            })
-        }
+        viewModel.reposList.observe(viewLifecycleOwner, Observer { reposList ->
+            reposList?.let {
+                Handler().postDelayed({
+                    val reposListAdapter = ReposListAdapter(it, this@UserReposFragment)
+                    reposListAdapter.setHasStableIds(true)
+                    repos_list_view.adapter = reposListAdapter
+                }, 500)
+            }
+        })
     }
 
     override fun listItemClicked(repo: Repo) {

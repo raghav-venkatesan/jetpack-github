@@ -7,6 +7,10 @@
         <variable
             name="userReposViewModel"
             type="com.example.raghav.jetpackgithub.viewmodel.UserReposViewModel" />
+
+        <variable
+            name="userReposFragment"
+            type="com.example.raghav.jetpackgithub.ui.UserReposFragment"/>
     </data>
 
     <LinearLayout
@@ -48,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/search"
                 android:textAllCaps="true"
-                android:layout_marginStart="15dp"/>
+                android:layout_marginStart="15dp"
+                android:onClick="@{() -> userReposFragment.searchButtonClicked()}"/>
 
         </LinearLayout>
 
@@ -60,7 +65,8 @@
             android:contentDescription="@string/enter_a_github_user_id"
             android:fitsSystemWindows="true"
             android:scaleType="centerCrop"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            app:imageFromUrl="@{userReposViewModel.avatarUrl}"/>
 
         <TextView
             android:id="@+id/githubUserIdTextView"
@@ -70,7 +76,7 @@
             android:layout_gravity="center_horizontal"
             android:textStyle="bold"
             android:layout_marginTop="5dp"
-            android:text="@{userReposViewModel.kittyName}"/>
+            android:text="@{userReposViewModel.userName}"/>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"

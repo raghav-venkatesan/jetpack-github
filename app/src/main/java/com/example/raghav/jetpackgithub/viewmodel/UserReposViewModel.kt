@@ -1,33 +1,30 @@
 package com.example.raghav.jetpackgithub.viewmodel
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.example.raghav.jetpackgithub.application.injectUserRepo
 import com.example.raghav.jetpackgithub.model.Repo
-import com.example.raghav.jetpackgithub.model.User
 import com.example.raghav.jetpackgithub.repository.UserRepository
-import com.example.raghav.jetpackgithub.viewmodel2.KittyRepository
+import javax.inject.Inject
 
 class UserReposViewModel : ViewModel() {
 
-    private var user: LiveData<User>? = null
-    private var repos: LiveData<List<Repo>>? = null
-    private val kittyRepository = KittyRepository()
+    @Inject lateinit var userRepo: UserRepository
 
-    val kittyName = MutableLiveData<String>()
-    val kittyAge = MutableLiveData<Int>()
+    val userName = MutableLiveData<String>()
+    val avatarUrl = MutableLiveData<String>()
+    val reposList = MutableLiveData<List<Repo>>()
 
-    fun init(githubUserId: String, userRepo: UserRepository) {
-        user = userRepo.getUser(githubUserId)
-        repos = userRepo.listRepos(githubUserId)
+    fun init(githubUserId: String) {
+        injectUserRepo(this)
 
-        kittyRepository.receiveNewKitties {
-            kittyName.postValue(it.name)
-            kittyAge.postValue(it.age)
+        userRepo.getUser(githubUserId) {
+            userName.postValue(it.name)
+            avatarUrl.postValue(it.avatar_url)
+        }
+
+        userRepo.listRepos(githubUserId) {
+            reposList.postValue(it)
         }
     }
-
-    fun getUser() = user
-
-    fun getRepos() = repos
 }
