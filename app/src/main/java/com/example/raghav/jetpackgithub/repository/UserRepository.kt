@@ -4,13 +4,36 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.example.raghav.jetpackgithub.model.Repo
 import com.example.raghav.jetpackgithub.model.User
+import com.example.raghav.jetpackgithub.viewmodel2.Kitty
+import com.example.raghav.jetpackgithub.viewmodel2.KittyNames
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import javax.inject.Singleton
+
+typealias NewKittiesReceived = (Kitty) -> Unit
 
 @Singleton
 data class UserRepository(val service: GithubService) {
+
+    val random = Random()
+
+    internal fun receiveNewKitties(newKittiesReceived: NewKittiesReceived) {
+//        timer.schedule(object : TimerTask() {
+//            override fun run() {
+//                val nameRandom = random.nextInt(KittyNames.values().size)
+//                val ageRandom = random.nextInt(5)
+//
+//                newKittiesReceived.invoke(Kitty(KittyNames.values()[nameRandom].name, ageRandom))
+//            }
+//        }, period, period)
+
+        val nameRandom = random.nextInt(KittyNames.values().size)
+        val ageRandom = random.nextInt(5)
+
+        newKittiesReceived.invoke(Kitty(KittyNames.values()[nameRandom].name, ageRandom))
+    }
 
     fun getUser(userId: String): LiveData<User>? {
         val data = MutableLiveData<User>()
