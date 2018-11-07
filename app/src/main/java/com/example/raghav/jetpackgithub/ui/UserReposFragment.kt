@@ -41,6 +41,12 @@ class UserReposFragment : Fragment() {
             setLifecycleOwner(this@UserReposFragment)
         }
 
+        viewModel.userName.observe(viewLifecycleOwner, Observer { _ ->
+            val slideUpAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_up_profile)
+            githubUserIdTextView.startAnimation(slideUpAnimation)
+            githubUserImage.startAnimation(slideUpAnimation)
+        })
+
         return binding.root
     }
 
@@ -53,11 +59,7 @@ class UserReposFragment : Fragment() {
     fun searchButtonClicked() {
         viewModel.init(githubUserIdInput.text.toString())
 
-        viewModel.userName.observe(viewLifecycleOwner, Observer { _ ->
-            val slideUpAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_up_profile)
-            githubUserIdTextView.startAnimation(slideUpAnimation)
-            githubUserImage.startAnimation(slideUpAnimation)
-        })
+
 
         viewModel.reposList.observe(viewLifecycleOwner, Observer { reposList ->
             reposList?.let {
