@@ -1,7 +1,7 @@
 package com.example.raghav.jetpackgithub.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.example.raghav.jetpackgithub.R
 

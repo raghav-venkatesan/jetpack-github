@@ -1,16 +1,16 @@
 package com.example.raghav.jetpackgithub.ui
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.raghav.jetpackgithub.R
 import com.example.raghav.jetpackgithub.databinding.FragmentUserReposBinding
 import com.example.raghav.jetpackgithub.ui.adapter.ReposAdapter
@@ -34,7 +34,6 @@ class UserReposFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentUserReposBinding>(
                 inflater, R.layout.fragment_user_repos, container, false).apply {
             userReposViewModel = viewModel
-            setLifecycleOwner(this@UserReposFragment)
         }
 
         viewModel.userName.observe(viewLifecycleOwner, Observer {

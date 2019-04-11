@@ -1,7 +1,7 @@
 package com.example.raghav.jetpackgithub.viewmodel
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.raghav.jetpackgithub.application.injectUserRepo
 import com.example.raghav.jetpackgithub.model.Repo
 import com.example.raghav.jetpackgithub.repository.UserRepository

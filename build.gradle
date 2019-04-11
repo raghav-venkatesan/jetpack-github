@@ -9,24 +9,22 @@ buildscript {
 
         // App dependencies
         constraintLayoutVersion = '1.1.2'
-        espressoVersion = '3.0.1'
+        espressoVersion = '3.1.0'
         glideVersion = '4.4.0'
         gradleVersion = '3.2.0-beta05'
         gsonVersion = '2.8.2'
         junitVersion = '4.12'
-        lifecycleVersion = '1.1.1'
-        navigationVersion = '1.0.0-alpha04'
-        kotlinVersion = '1.2.60'
+        kotlinVersion = '1.3.21'
         ktlintVersion = '0.24.0'
-        ktxVersion = '0.3'
+        ktxVersion = '1.0.1'
         roomVersion = '1.1.1'
         runnerVersion = '1.0.1'
-        supportLibraryVersion = '28.0.0-rc01'
-        workVersion = '1.0.0-alpha06'
+        supportLibraryVersion = '28.0.0'
+        workVersion = '1.0.1-rc01'
         retrofitVersion = '2.3.0'
         daggerVersion = '2.13'
         mockitoVersion = '2.7.22'
-        coreTestingVersion = '1.1.1'
+        coreTestingVersion = '2.0.0'
     }
 
     repositories {
@@ -35,9 +33,8 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:3.2.1"
+        classpath 'com.android.tools.build:gradle:3.3.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
     }
 }
 
