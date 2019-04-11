@@ -11,7 +11,6 @@ buildscript {
         appCompatVersion = '1.1.0-alpha04'
         constraintLayoutVersion = '2.0.0-alpha4'
         coreTestingVersion = '2.0.0'
-        coroutinesVersion = "1.1.1"
         daggerVersion = '2.13'
         espressoVersion = '3.1.0-alpha4'
         glideVersion = '4.9.0'
@@ -26,8 +25,6 @@ buildscript {
         navigationVersion = '2.1.0-alpha02'
         recyclerViewVersion = "1.1.0-alpha04"
         retrofitVersion = '2.3.0'
-        roomVersion = '2.1.0-alpha06'
-        workVersion = '2.0.1'
     }
 
     repositories {
