@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
-@BindingAdapter("imageFromUrl")
+@BindingAdapter("bind:imageFromUrl")
 fun imageFromUrl(view: ImageView, imageUrl: String?) {
     imageUrl?.let {
         if (!it.isEmpty()) {

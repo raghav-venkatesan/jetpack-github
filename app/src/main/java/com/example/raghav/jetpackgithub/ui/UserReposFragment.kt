@@ -1,12 +1,12 @@
 package com.example.raghav.jetpackgithub.ui
 
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.fragment_user_repos.*
 
 /**
  * Fragment to show the list of repositories
- *
  */
 
 class UserReposFragment : Fragment() {
@@ -34,6 +33,7 @@ class UserReposFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentUserReposBinding>(
                 inflater, R.layout.fragment_user_repos, container, false).apply {
             userReposViewModel = viewModel
+            lifecycleOwner = this@UserReposFragment
         }
 
         viewModel.userName.observe(viewLifecycleOwner, Observer {

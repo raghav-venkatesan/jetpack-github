@@ -6,7 +6,7 @@ import android.widget.TextView
 import com.example.raghav.jetpackgithub.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class CustomBottomSheetDialog(context: Context, updatedAt: String, stars: String, forks: String): BottomSheetDialog(context) {
+class CustomBottomSheetDialog(context: Context, updatedAt: String, stars: String, forks: String) : BottomSheetDialog(context) {
 
     init {
         setContentView(R.layout.view_repo_detail)

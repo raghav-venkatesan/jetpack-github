@@ -10,8 +10,7 @@ data class Repo(val name: String, val description: String, val updated_at: Strin
         Show details of the selected repo using a custom bottom sheet dialog.
         It provides the requisite animations.
          */
-        val customBottomSheetDialog
-                = CustomBottomSheetDialog(view.context,
+        val customBottomSheetDialog = CustomBottomSheetDialog(view.context,
                 convertTimeFormat(updated_at),
                 stargazers_count.toString(),
                 forks.toString())

@@ -1,46 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="repo"
-            type="com.example.raghav.jetpackgithub.model.Repo"/>
+            type="com.example.raghav.jetpackgithub.model.Repo" />
     </data>
+
     <LinearLayout
         android:id="@+id/listItem"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{(v) -> repo.listItemClicked(v)}">
+        android:onClick="@{(v) -> repo.listItemClicked(v)}"
+        android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             app:cardElevation="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textViewRepoName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
-                    android:textStyle="bold"
-                    android:text="@{repo.name}"/>
+                    android:text="@{repo.name}"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewRepoDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{repo.description}"/>
+                    android:text="@{repo.description}" />
 
             </LinearLayout>
 

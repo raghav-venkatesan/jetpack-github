@@ -9,7 +9,8 @@ import javax.inject.Inject
 
 class UserReposViewModel : ViewModel() {
 
-    @Inject lateinit var userRepo: UserRepository
+    @Inject
+    lateinit var userRepo: UserRepository
 
     val userName = MutableLiveData<String>()
     val avatarUrl = MutableLiveData<String>()
