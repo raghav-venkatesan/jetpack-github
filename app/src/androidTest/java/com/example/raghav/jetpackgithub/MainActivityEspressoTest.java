@@ -23,7 +23,7 @@ public class MainActivityEspressoTest {
 
     @Test
     public void ensureTextChangesWork() {
-        onView(withId(R.id.githubUserIdInput)).perform(typeText("octocat"), closeSoftKeyboard());
+        onView(withId(R.id.github_user_id_input)).perform(typeText("octocat"), closeSoftKeyboard());
         onView(withId(R.id.searchButton)).perform(click());
 
         onView(withId(R.id.repos_list_view)).perform(swipeUp());

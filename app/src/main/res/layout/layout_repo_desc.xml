@@ -5,16 +5,13 @@
         <variable
             name="repo"
             type="com.example.raghav.jetpackgithub.model.Repo"/>
-        <variable
-            name="reposFragment"
-            type="com.example.raghav.jetpackgithub.ui.UserReposFragment"/>
     </data>
     <LinearLayout
         android:id="@+id/listItem"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> reposFragment.listItemClicked(repo)}">
+        android:onClick="@{(v) -> repo.listItemClicked(v)}">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"

@@ -9,9 +9,8 @@ import android.support.v7.widget.RecyclerView
 import com.example.raghav.jetpackgithub.R
 import com.example.raghav.jetpackgithub.databinding.LayoutRepoDescBinding
 import com.example.raghav.jetpackgithub.model.Repo
-import com.example.raghav.jetpackgithub.ui.UserReposFragment
 
-class ReposAdapter(private val repoList: List<Repo>, private val userReposFragment: UserReposFragment) : RecyclerView.Adapter<ReposAdapter.MyViewHolder>() {
+class ReposAdapter(private val repoList: List<Repo>) : RecyclerView.Adapter<ReposAdapter.MyViewHolder>() {
     private lateinit var layoutInflater: LayoutInflater
 
     inner class MyViewHolder(val binding: LayoutRepoDescBinding) : RecyclerView.ViewHolder(binding.root)
@@ -24,7 +23,6 @@ class ReposAdapter(private val repoList: List<Repo>, private val userReposFragme
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.binding.repo = repoList[position]
-        holder.binding.reposFragment = userReposFragment
     }
 
     override fun getItemCount(): Int {

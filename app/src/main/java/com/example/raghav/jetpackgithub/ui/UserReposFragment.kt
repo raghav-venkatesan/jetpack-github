@@ -13,10 +13,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.example.raghav.jetpackgithub.R
 import com.example.raghav.jetpackgithub.databinding.FragmentUserReposBinding
-import com.example.raghav.jetpackgithub.model.Repo
 import com.example.raghav.jetpackgithub.ui.adapter.ReposAdapter
-import com.example.raghav.jetpackgithub.ui.customview.CustomBottomSheetDialog
-import com.example.raghav.jetpackgithub.util.convertTimeFormat
 import com.example.raghav.jetpackgithub.viewmodel.UserReposViewModel
 import kotlinx.android.synthetic.main.fragment_user_repos.*
 
@@ -37,14 +34,23 @@ class UserReposFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentUserReposBinding>(
                 inflater, R.layout.fragment_user_repos, container, false).apply {
             userReposViewModel = viewModel
-            userReposFragment = this@UserReposFragment
             setLifecycleOwner(this@UserReposFragment)
         }
 
-        viewModel.userName.observe(viewLifecycleOwner, Observer { _ ->
+        viewModel.userName.observe(viewLifecycleOwner, Observer {
             val slideUpAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_up_profile)
-            githubUserIdTextView.startAnimation(slideUpAnimation)
-            githubUserImage.startAnimation(slideUpAnimation)
+            github_user_id_text_view.startAnimation(slideUpAnimation)
+            github_user_image.startAnimation(slideUpAnimation)
+        })
+
+        viewModel.reposList.observe(viewLifecycleOwner, Observer { reposList ->
+            reposList?.let {
+                Handler().postDelayed({
+                    val reposListAdapter = ReposAdapter(it)
+                    reposListAdapter.setHasStableIds(true)
+                    repos_list_view.adapter = reposListAdapter
+                }, 500)
+            }
         })
 
         return binding.root
@@ -56,32 +62,4 @@ class UserReposFragment : Fragment() {
         repos_list_view.layoutManager = LinearLayoutManager(context)
     }
 
-    fun searchButtonClicked() {
-        viewModel.init(githubUserIdInput.text.toString())
-
-
-
-        viewModel.reposList.observe(viewLifecycleOwner, Observer { reposList ->
-            reposList?.let {
-                Handler().postDelayed({
-                    val reposListAdapter = ReposAdapter(it, this@UserReposFragment)
-                    reposListAdapter.setHasStableIds(true)
-                    repos_list_view.adapter = reposListAdapter
-                }, 500)
-            }
-        })
-    }
-
-    fun listItemClicked(repo: Repo) {
-        /*
-        Show details of the selected repo using a custom bottom sheet dialog.
-        It provides the requisite animations.
-         */
-        val customBottomSheetDialog
-                = CustomBottomSheetDialog(context!!,
-                convertTimeFormat(repo.updated_at),
-                repo.stargazers_count.toString(),
-                repo.forks.toString())
-        customBottomSheetDialog.show()
-    }
 }
