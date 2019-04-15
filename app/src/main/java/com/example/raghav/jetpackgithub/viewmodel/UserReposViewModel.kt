@@ -1,11 +1,12 @@
 package com.example.raghav.jetpackgithub.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.raghav.jetpackgithub.application.injectUserRepo
+import androidx.lifecycle.viewModelScope
 import com.example.raghav.jetpackgithub.model.Repo
 import com.example.raghav.jetpackgithub.repository.UserRepository
-import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 class UserReposViewModel(private val userRepo: UserRepository) : ViewModel() {
 
