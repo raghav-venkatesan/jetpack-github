@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.raghav.jetpackgithub.R
+import com.example.raghav.jetpackgithub.application.inject
 import com.example.raghav.jetpackgithub.databinding.FragmentUserReposBinding
 import com.example.raghav.jetpackgithub.model.User
 import com.example.raghav.jetpackgithub.room.AppDatabase
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_user_repos.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 /**
  * Fragment to show the list of repositories
@@ -35,10 +37,13 @@ class UserReposFragment : Fragment() {
 
     private lateinit var viewModel: UserReposViewModel
     private lateinit var temp: LiveData<User>
-    private lateinit var userDao: UserDao
+    @Inject
+    lateinit var userDao: UserDao
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        inject(this)
 
         viewModel = ViewModelProviders.of(this, UserReposViewModelFactory()).get(UserReposViewModel::class.java)
 
@@ -52,7 +57,6 @@ class UserReposFragment : Fragment() {
             val slideUpAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_up_profile)
             github_user_id_text_view.startAnimation(slideUpAnimation)
             github_user_image.startAnimation(slideUpAnimation)
-            addUser()
         })
 
         viewModel.reposList.observe(viewLifecycleOwner, Observer { reposList ->
@@ -65,6 +69,10 @@ class UserReposFragment : Fragment() {
             }
         })
 
+        userDao.getUser("1").observe(viewLifecycleOwner, Observer {
+            println("User Received: ${it.name}")
+        })
+
         return binding.root
     }
 
@@ -72,25 +80,5 @@ class UserReposFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         repos_list_view.layoutManager = LinearLayoutManager(context)
-    }
-
-    private fun addUser() {
-        viewModel.viewModelScope.launch {
-            createUser()
-        }
-
-        userDao = AppDatabase.getInstance(context!!).userDao()
-        temp = userDao.getUser("1")
-        temp.observe(viewLifecycleOwner, Observer {
-            println("User Received: ${it.name}")
-        })
-    }
-
-    private suspend fun createUser() {
-        withContext(Dispatchers.IO) {
-            val user = User("1", "kichu", "3")
-            val inserted = userDao.insertUser(user)
-            println("User Inserted $inserted")
-        }
     }
 }

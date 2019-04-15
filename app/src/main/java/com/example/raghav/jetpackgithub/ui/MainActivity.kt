@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.example.raghav.jetpackgithub.R
+import com.example.raghav.jetpackgithub.room.AppDatabase
 
 class MainActivity : AppCompatActivity() {
 

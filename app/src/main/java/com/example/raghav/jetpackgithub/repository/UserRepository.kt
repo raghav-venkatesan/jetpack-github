@@ -1,6 +1,5 @@
 package com.example.raghav.jetpackgithub.repository
 
-import android.content.Context
 import com.example.raghav.jetpackgithub.model.Repo
 import com.example.raghav.jetpackgithub.model.User
 import com.example.raghav.jetpackgithub.room.AppDatabase
@@ -46,4 +45,24 @@ data class UserRepository(val service: GithubService) {
             }
         })
     }
+
+//    private fun addUser() {
+//        viewModel.viewModelScope.launch {
+//            createUser()
+//        }
+//
+//        userDao = AppDatabase.getInstance(context!!).userDao()
+//        temp = userDao.getUser("1")
+//        temp.observe(viewLifecycleOwner, Observer {
+//            println("User Received: ${it.name}")
+//        })
+//    }
+//
+//    private suspend fun createUser() {
+//        withContext(Dispatchers.IO) {
+//            val user = User("1", "kichu", "3")
+//            val inserted = userDao.insertUser(user)
+//            println("User Inserted $inserted")
+//        }
+//    }
 }
