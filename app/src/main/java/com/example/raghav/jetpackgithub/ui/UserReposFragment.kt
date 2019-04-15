@@ -15,6 +15,7 @@ import com.example.raghav.jetpackgithub.R
 import com.example.raghav.jetpackgithub.databinding.FragmentUserReposBinding
 import com.example.raghav.jetpackgithub.ui.adapter.ReposAdapter
 import com.example.raghav.jetpackgithub.viewmodel.UserReposViewModel
+import com.example.raghav.jetpackgithub.viewmodel.UserReposViewModelFactory
 import kotlinx.android.synthetic.main.fragment_user_repos.*
 
 /**
@@ -28,7 +29,7 @@ class UserReposFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        viewModel = ViewModelProviders.of(this@UserReposFragment).get(UserReposViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, UserReposViewModelFactory()).get(UserReposViewModel::class.java)
 
         val binding = DataBindingUtil.inflate<FragmentUserReposBinding>(
                 inflater, R.layout.fragment_user_repos, container, false).apply {

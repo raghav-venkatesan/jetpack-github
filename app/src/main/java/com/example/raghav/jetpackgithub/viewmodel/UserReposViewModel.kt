@@ -7,18 +7,13 @@ import com.example.raghav.jetpackgithub.model.Repo
 import com.example.raghav.jetpackgithub.repository.UserRepository
 import javax.inject.Inject
 
-class UserReposViewModel : ViewModel() {
-
-    @Inject
-    lateinit var userRepo: UserRepository
+class UserReposViewModel(private val userRepo: UserRepository) : ViewModel() {
 
     val userName = MutableLiveData<String>()
     val avatarUrl = MutableLiveData<String>()
     val reposList = MutableLiveData<List<Repo>>()
 
     fun init(githubUserId: String) {
-        injectUserRepo(this)
-
         userRepo.getUser(githubUserId) {
             userName.postValue(it.name)
             avatarUrl.postValue(it.avatar_url)
